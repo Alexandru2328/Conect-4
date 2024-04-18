@@ -1,0 +1,62 @@
+.gridContainer {
+    display: none;
+    width: 50%;
+    grid-template-rows: repeat(7, 80px); 
+    grid-template-columns: repeat(7, 13%);
+    background-color: #0b2d3a;
+    border: 1px dashed #1E96FF;
+    gap: 5px;
+    margin: 10px;
+    border-radius: 45px;
+    border: none;
+    align-items: inherit;
+   }
+
+  
+   
+   .griItem {
+    background-color: #1E96FF;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 2px;
+    border-radius: 45px;
+    font-size: 900%;
+   }
+
+.gridBtn {
+background-color: #1E96FF;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 2px;
+    border-radius: 45px;
+    font-size: 900%;
+}
+
+   .interact {
+    position: absolute;
+    top: 20%;
+    left: 65%;
+    width: 400px;
+    height: 300px;
+    background-color: rgb(255, 123, 0);
+    z-index: 1;
+    border-radius: 65px;
+    text-align: center;
+   }
+
+   #btnNewGame {
+    border-radius: 45px;
+    background-color: greenyellow;
+    width: 55%;
+    height: 100px;
+   }
+   #startGame {
+    border-radius: 45px;
+    background-color: greenyellow;
+    width: 55%;
+    height: 100px;
+   }
+
+   body {
+    background-image: url("background.jpg");
+   }
