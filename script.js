@@ -22,7 +22,6 @@ function showWiner(winer) {
     btnNewGame.addEventListener('click', function() {
         resetGame();
     });
-    
     newGame.appendChild(btnNewGame);
     message.innerHTML = "PLAYER " + `${winer}` + " WIN!";
     let container = document.getElementById('container');
@@ -30,7 +29,6 @@ function showWiner(winer) {
     buttons.forEach(button => {
         button.remove();
     }); 
-
 }
 
 function checkAllDiagonals(value) {
@@ -54,7 +52,6 @@ function checkAllDiagonals(value) {
     }
     return false;
 }
-
 
 function checkSubsequence(value, line, column) {
     let constSbqLine = 0, constSbqColumn = 0;
