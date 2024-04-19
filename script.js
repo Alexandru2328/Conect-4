@@ -1,29 +1,29 @@
 let appearanceOrder = 0;
 let matrixGame = [
-          [11, 21, 31, 41, 51, 61, 71,],
-          [12, 22, 32, 42, 52, 62, 72,],
-          [13, 23, 33, 43, 53, 63, 73,],
-          [14, 24, 34, 44, 54, 64, 74,],   
-          [15, 25, 35, 45, 55, 65, 75,], 
-          [16, 26, 36, 46, 56, 66, 76,], 
-        ];                               
+    [11, 21, 31, 41, 51, 61, 71,],
+    [12, 22, 32, 42, 52, 62, 72,],
+    [13, 23, 33, 43, 53, 63, 73,],
+    [14, 24, 34, 44, 54, 64, 74,],   
+    [15, 25, 35, 45, 55, 65, 75,], 
+    [16, 26, 36, 46, 56, 66, 76,], 
+];                                     
 let id = matrixGame.flat();
 
 function resetGame() {
     window.location.reload();
 }
 
-function showWiner(winer) {
+function showWinner(winner) {
     let message = document.getElementById("message");
     let newGame = document.getElementById("newGame");
     let btnNewGame = document.createElement("button");
     btnNewGame.textContent = "NEW GAME ?";
     btnNewGame.id = "startGame";
-    btnNewGame.addEventListener('click', function() {
+    btnNewGame.addEventListener("click", function() {
         resetGame();
     });
     newGame.appendChild(btnNewGame);
-    message.innerHTML = "PLAYER " + `${winer}` + " WIN!";
+    message.innerHTML = "PLAYER " + winner + " WIN!";
     let container = document.getElementById('container');
     let buttons = container.querySelectorAll('.gridBtn');
     buttons.forEach(button => {
@@ -33,24 +33,22 @@ function showWiner(winer) {
 
 function checkAllDiagonals(value) {
     for (let i = 0; i < 6; ++i) {
-        let constSbqDiagonal1 = 0, constSbqDiagonal2 = 0;
+        let mainDiagona = 0, secondDiagona = 0;
         for (let j = 0; j + i < 6; ++j) {
             if (matrixGame[j][j + i] === value) {
-                ++constSbqDiagonal1;
+                ++mainDiagona;
             } else {
-                constSbqDiagonal1 = 0;
+                mainDiagona = 0;
             }
             if (matrixGame[j][matrixGame.length - 1 - (j + i)] === value) {
-                ++constSbqDiagonal2;
+                ++secondDiagona;
             } else {
-                constSbqDiagonal2 = 0;
+                secondDiagona = 0;
             }
-            if (constSbqDiagonal1 >= 4 || constSbqDiagonal2 >= 4) {
-                return true;
-            }
+            
         }
+        return (mainDiagona === 4 || secondDiagona === 4);
     }
-    return false;
 }
 
 function checkSubsequence(value, line, column) {
@@ -61,7 +59,7 @@ function checkSubsequence(value, line, column) {
         } else {
             constSbqLine = 0;
         }
-        if (constSbqLine >= 4) {
+        if (constSbqLine === 4) {
             break;
         }
     }
@@ -71,25 +69,21 @@ function checkSubsequence(value, line, column) {
         } else {
             constSbqColumn = 0;
         }
-        if (constSbqColumn >= 4) {
+        if (constSbqColumn === 4) {
             break;
         }
     }
-    if (constSbqLine >= 4 || constSbqColumn >= 4) {
-        return true;
-    }
-    return false;
+    return (constSbqLine === 4 || constSbqColumn === 4);
 }
 
 function checkStatus() {
     for (let i = 0; i < 6; ++i) {
         for (let j = 0; j < 7; ++j) {
             if (matrixGame[i][j] === 1 || matrixGame[i][j] === 2) {
-                if (checkSubsequence(matrixGame[i][j], i, j) === true) {
+                if (checkSubsequence(matrixGame[i][j], i, j) ||
+                    checkAllDiagonals(matrixGame[i][j])) {
                     return matrixGame[i][j];
-                } else if (checkAllDiagonals(matrixGame[i][j]) === true) {
-                    return matrixGame[i][j];
-                }
+                } 
             }
         }
     }
@@ -114,9 +108,9 @@ function showColor(number1, number2, buttonid) {
         --number2;
         document.getElementById(buttonid).setAttribute('onclick',
              `showColor(${number1}, ${number2}, '${buttonid}')`);
-        let winer = checkStatus();
-        if (winer !== 0) {
-            showWiner(winer);
+        let isWineer = checkStatus();
+        if (isWineer) {
+            showWinner(isWineer);
         }
     }
 }
@@ -126,7 +120,8 @@ function startGame() {
     let btnStart = document.getElementById("startGame");
     btnStart.remove();
     gridContainer.style.display = "grid";
-    for (let i = 0; i < 42; ++i) {
+    const NR_OF_GRIDS = 42;
+    for (let i = 0; i < NR_OF_GRIDS; ++i) {
         let newField = document.createElement("div");
         newField.className = "griItem";
         newField.id = id[i];
